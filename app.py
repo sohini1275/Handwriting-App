@@ -1,3 +1,4 @@
+
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 from PIL import Image, ImageOps
@@ -14,10 +15,14 @@ from tensorflow.keras.models import load_model
 @st.cache_resource
 def load_resources():
 
-    english_model = load_model("English/english_model.keras")
+    # Load models
+    english_model = load_model("English/english_model.h5")
     hindi_model = load_model("Hindi/hindi_model.h5")
     japanese_model = load_model("Japanese/Hiragana/hiragana_model.h5")
+    korean_model = load_model("Korean/korean_model.h5")
+    russian_model = load_model("Russian/russian_model.h5")
 
+    # Load labels
     with open("English/english_labels.txt", "r", encoding="utf-8") as f:
         english_labels = [line.strip() for line in f]
 
@@ -27,13 +32,23 @@ def load_resources():
     with open("Japanese/Hiragana/hiragana_labels.txt", "r", encoding="utf-8") as f:
         japanese_labels = [line.strip() for line in f]
 
+    with open("Korean/korean_labels.txt", "r", encoding="utf-8") as f:
+        korean_labels = [line.strip() for line in f]
+
+    with open("Russian/russian_labels.txt", "r", encoding="utf-8") as f:
+        russian_labels = [line.strip() for line in f]
+
     return (
         english_model,
         hindi_model,
         japanese_model,
+        korean_model,
+        russian_model,
         english_labels,
         hindi_labels,
-        japanese_labels
+        japanese_labels,
+        korean_labels,
+        russian_labels
     )
 
 
@@ -41,9 +56,13 @@ def load_resources():
     english_model,
     hindi_model,
     japanese_model,
+    korean_model,
+    russian_model,
     english_labels,
     hindi_labels,
-    japanese_labels
+    japanese_labels,
+    korean_labels,
+    russian_labels
 ) = load_resources()
 
 
@@ -52,12 +71,12 @@ def load_resources():
 # =====================================
 
 st.set_page_config(
-    page_title="Handwriting Recognition",
+    page_title="Multilingual Handwriting Recognition",
     layout="wide"
 )
 
 st.title("✍️ Multilingual Handwriting Recognition")
-st.write("English • Hindi • Japanese")
+st.write("English • Hindi • Japanese • Korean • Russian")
 
 
 # =====================================
@@ -66,7 +85,7 @@ st.write("English • Hindi • Japanese")
 
 language = st.sidebar.selectbox(
     "Select Language",
-    ["English", "Hindi", "Japanese"]
+    ["English", "Hindi", "Japanese", "Korean", "Russian"]
 )
 
 
@@ -82,9 +101,17 @@ elif language == "Hindi":
     model = hindi_model
     labels = hindi_labels
 
-else:
+elif language == "Japanese":
     model = japanese_model
     labels = japanese_labels
+
+elif language == "Korean":
+    model = korean_model
+    labels = korean_labels
+
+else:
+    model = russian_model
+    labels = russian_labels
 
 
 # =====================================
@@ -154,7 +181,7 @@ if st.button("Predict"):
             1
         )
 
-        # Debug image (optional)
+        # Debug image
         st.image(
             img,
             caption="Processed Image",
