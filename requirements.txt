@@ -5,3 +5,5 @@ matplotlib
 opencv-python
 pandas
 streamlit
+streamlit-drawable-canvas
+opencv-python-headless
