@@ -1,36 +1,36 @@
-adna
-ba
-bha
-cha
-chha
-chhya
-da
-daa
-dha
-dhaa
-ga
-gha
-gya
-ha
-ja
-jha
-ka
-kha
-kna
-la
-ma
-motosaw
-na
-pa
-patalosaw
-petchiryakha
-pha
-ra
-taamatar
-tabala
-tha
-thaa
-tra
-waw
-yaw
-yna
+ण (nna)
+ब (ba)
+भ (bha)
+च (cha)
+छ (chha)
+क्ष (ksha)
+द (da)
+ड (daa)
+ध (dha)
+ढ (dhaa)
+ग (ga)
+घ (gha)
+ज्ञ (gya)
+ह (ha)
+ज (ja)
+झ (jha)
+क (ka)
+ख (kha)
+ङ (kna)
+ल (la)
+म (ma)
+श (sha)
+न (na)
+प (pa)
+स (sa)
+ष (sha)
+फ (pha)
+र (ra)
+ट (tta)
+त (ta)
+थ (tha)
+ठ (ttha)
+त्र (tra)
+व (va)
+य (ya)
+ञ (nya)
