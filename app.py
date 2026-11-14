@@ -125,7 +125,8 @@ canvas_result = st_canvas(
     width=280,
     height=280,
     drawing_mode="freedraw",
-    key="canvas"
+    key="canvas",
+    return_image_data=True
 )
 
 
@@ -220,3 +221,6 @@ if st.button("Predict"):
                 f"{labels[idx]} : "
                 f"{prediction[0][idx] * 100:.2f}%"
             )
+
+    else:
+        st.warning("Please draw a character before clicking Predict.")
