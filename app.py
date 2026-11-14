@@ -8,6 +8,16 @@ from tensorflow.keras.models import load_model
 
 
 # =====================================
+# PAGE CONFIGURATION
+# =====================================
+
+st.set_page_config(
+    page_title="Multilingual Handwriting Recognition",
+    layout="wide"
+)
+
+
+# =====================================
 # LOAD MODELS & LABELS
 # =====================================
 
@@ -66,15 +76,11 @@ def load_resources():
 
 
 # =====================================
-# PAGE
+# TITLE
 # =====================================
 
-st.set_page_config(
-    page_title="Multilingual Handwriting Recognition",
-    layout="wide"
-)
-
 st.title("✍️ Multilingual Handwriting Recognition")
+
 st.write("English • Hindi • Japanese • Korean • Russian")
 
 
@@ -114,6 +120,14 @@ else:
 
 
 # =====================================
+# CANVAS STATE
+# =====================================
+
+if "canvas_key" not in st.session_state:
+    st.session_state.canvas_key = 0
+
+
+# =====================================
 # CANVAS
 # =====================================
 
@@ -125,16 +139,45 @@ canvas_result = st_canvas(
     width=280,
     height=280,
     drawing_mode="freedraw",
-    key="canvas",
-    return_image_data=True
+    key=f"canvas_{st.session_state.canvas_key}",
+    return_image_data=True,
+    display_toolbar=False
 )
+
+
+# =====================================
+# PREDICT & CLEAR BUTTONS
+# =====================================
+
+col1, col2 = st.columns(2)
+
+with col1:
+    predict_clicked = st.button(
+        "Predict",
+        use_container_width=True
+    )
+
+with col2:
+    clear_clicked = st.button(
+        "Clear",
+        use_container_width=True
+    )
+
+
+# =====================================
+# CLEAR CANVAS
+# =====================================
+
+if clear_clicked:
+    st.session_state.canvas_key += 1
+    st.rerun()
 
 
 # =====================================
 # PREDICT
 # =====================================
 
-if st.button("Predict"):
+if predict_clicked:
 
     if canvas_result.image_data is not None:
 
@@ -149,8 +192,6 @@ if st.button("Predict"):
 
         img = img.convert("L")
 
-        # SAME PREPROCESSING AS COLAB
-
         # Invert
         img = ImageOps.invert(img)
 
@@ -158,69 +199,74 @@ if st.button("Predict"):
         bbox = img.getbbox()
 
         if bbox:
+
             img = img.crop(bbox)
 
-        # Add padding
-        img = ImageOps.expand(
-            img,
-            border=20,
-            fill=255
-        )
-
-        # Resize
-        img = img.resize((64, 64))
-
-        # Normalize
-        img_array = np.array(img).astype("float32") / 255.0
-
-        img_array = img_array.reshape(
-            1,
-            64,
-            64,
-            1
-        )
-
-        # Debug image
-        st.image(
-            img,
-            caption="Processed Image",
-            width=150
-        )
-
-        # Prediction
-        prediction = model.predict(
-            img_array,
-            verbose=0
-        )
-
-        predicted_index = np.argmax(prediction)
-
-        predicted_label = labels[predicted_index]
-
-        confidence = float(
-            np.max(prediction) * 100
-        )
-
-        st.success(
-            f"Prediction: {predicted_label}"
-        )
-
-        st.info(
-            f"Confidence: {confidence:.2f}%"
-        )
-
-        st.subheader("Top 3 Predictions")
-
-        top3 = np.argsort(
-            prediction[0]
-        )[-3:][::-1]
-
-        for idx in top3:
-
-            st.write(
-                f"{labels[idx]} : "
-                f"{prediction[0][idx] * 100:.2f}%"
+            # Add padding
+            img = ImageOps.expand(
+                img,
+                border=20,
+                fill=255
             )
 
+            # Resize
+            img = img.resize((64, 64))
+
+            # Normalize
+            img_array = np.array(img).astype("float32") / 255.0
+
+            img_array = img_array.reshape(
+                1,
+                64,
+                64,
+                1
+            )
+
+            # Debug image
+            st.image(
+                img,
+                caption="Processed Image",
+                width=150
+            )
+
+            # Prediction
+            prediction = model.predict(
+                img_array,
+                verbose=0
+            )
+
+            predicted_index = np.argmax(prediction)
+
+            predicted_label = labels[predicted_index]
+
+            confidence = float(
+                np.max(prediction) * 100
+            )
+
+            st.success(
+                f"Prediction: {predicted_label}"
+            )
+
+            st.info(
+                f"Confidence: {confidence:.2f}%"
+            )
+
+            # Top 3 Predictions
+            st.subheader("Top 3 Predictions")
+
+            top3 = np.argsort(
+                prediction[0]
+            )[-3:][::-1]
+
+            for idx in top3:
+
+                st.write(
+                    f"{labels[idx]} : "
+                    f"{prediction[0][idx] * 100:.2f}%"
+                )
+
+        else:
+            st.warning("Please draw a character first.")
+
     else:
-        st.warning("Please draw a character before clicking Predict.")
+        st.warning("Please draw a character first.")
