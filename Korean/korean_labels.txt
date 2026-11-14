@@ -1,64 +1,64 @@
-a
-bak
-bo
-bu
-choe
-da
-dae
-deul
-do
-dong
-e
-eo
-eu
-eui
-eul
-eun
-ga
-geos
-geu
-gi
-gim
-go
-gong
-gu
-guk
-gwa
-gye
-gyeong
-ha
-hae
-han
-hwa
-i
-il
-in
-iss
-ja
-jang
-je
-jeok
-jeon
-jeong
-ji
-jo
-ju
-na
-neun
-ra
-reul
-ri
-ro
-sa
-sang
-seo
-seong
-seu
-si
-so
-su
-wi
-won
-yeo
-yeon
-yong
+아 (a)
+박 (bak)
+보 (bo)
+부 (bu)
+최 (choe)
+다 (da)
+대 (dae)
+들 (deul)
+도 (do)
+동 (dong)
+에 (e)
+어 (eo)
+으 (eu)
+의 (eui)
+을 (eul)
+은 (eun)
+가 (ga)
+것 (geos)
+그 (geu)
+기 (gi)
+김 (gim)
+고 (go)
+공 (gong)
+구 (gu)
+국 (guk)
+과 (gwa)
+계 (gye)
+경 (gyeong)
+하 (ha)
+해 (hae)
+한 (han)
+화 (hwa)
+이 (i)
+일 (il)
+인 (in)
+있 (iss)
+자 (ja)
+장 (jang)
+제 (je)
+적 (jeok)
+전 (jeon)
+정 (jeong)
+지 (ji)
+조 (jo)
+주 (ju)
+나 (na)
+는 (neun)
+라 (ra)
+를 (reul)
+리 (ri)
+로 (ro)
+사 (sa)
+상 (sang)
+서 (seo)
+성 (seong)
+스 (seu)
+시 (si)
+소 (so)
+수 (su)
+위 (wi)
+원 (won)
+여 (yeo)
+연 (yeon)
+용 (yong)
