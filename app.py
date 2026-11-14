@@ -140,8 +140,7 @@ canvas_result = st_canvas(
     height=280,
     drawing_mode="freedraw",
     key=f"canvas_{st.session_state.canvas_key}",
-    return_image_data=True,
-    display_toolbar=False
+    return_image_data=True
 )
 
 
@@ -243,6 +242,7 @@ if predict_clicked:
                 np.max(prediction) * 100
             )
 
+            # Display prediction
             st.success(
                 f"Prediction: {predicted_label}"
             )
