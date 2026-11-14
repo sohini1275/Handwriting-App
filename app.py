@@ -3,7 +3,6 @@ import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 from PIL import Image, ImageOps
 import numpy as np
-import cv2
 
 from tensorflow.keras.models import load_model
 
@@ -138,17 +137,16 @@ if st.button("Predict"):
 
     if canvas_result.image_data is not None:
 
-        # Canvas image
+        # Get canvas image
         img = canvas_result.image_data
 
-        # Convert RGBA -> Grayscale
-        img = cv2.cvtColor(
+        # Convert RGBA to grayscale using Pillow
+        img = Image.fromarray(
             img.astype(np.uint8),
-            cv2.COLOR_RGBA2GRAY
+            mode="RGBA"
         )
 
-        # Convert to PIL Image
-        img = Image.fromarray(img)
+        img = img.convert("L")
 
         # SAME PREPROCESSING AS COLAB
 
